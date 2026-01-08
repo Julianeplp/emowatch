@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Emotion‑Aware Interaction Aid for Autism Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#eaf2ff;
+      --ink:#0b132b;
+      --accent:#6aa5ff;
+      --accent-2:#4a7edc;
+      --panel:#ffffff;
+      --shadow:0 10px 30px rgba(0,0,0,.12);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .poster{max-width:960px; margin:24px auto; padding:0 16px; display:flex; flex-direction:column; gap:20px;}
+
+    .hero{
+      position:relative; overflow:hidden; border-radius:var(--radius);
+      background:linear-gradient(135deg, #6aa5ff 0%, #4a7edc 80%);
+      color:#fff;
+      box-shadow:var(--shadow);
+      padding:50px 36px;
+      text-align:center;
+    }
+    .hero h1{
+      margin:0; font-weight:800; letter-spacing:-.02em;
+      font-size:clamp(28px,5vw,56px);
+      font-family:Space Grotesk, Inter, sans-serif;
+    }
+    .hero p{margin:12px auto 0; max-width:720px; opacity:.9; font-size:clamp(16px,2.2vw,20px);}
+
+    .footer{
+      border-radius:var(--radius); min-height:260px; background:var(--panel);
+      box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:24px;
+      background-image:linear-gradient(135deg, rgba(106,165,255,.1), rgba(74,126,220,.1));
+    }
+    .footer img{
+      height:60px; margin-bottom:8px; filter: brightness(0) invert(0.1);
+    }
+    .footer .team-name{
+      font-weight:700; font-size:1.2rem; color:var(--ink);
+    }
+
+    .canvas{
+      background:#0b132b; color:#fff; border-radius:22px; padding:20px 16px; box-shadow:var(--shadow);
+      text-align:center;
+    }
+    .canvas h2{margin:0 0 8px; font-size:clamp(18px,2.6vw,24px)}
+    .canvas p{margin:0 0 16px; opacity:.85}
+    .cta-link{
+      display:inline-block;
+      background:#6aa5ff;
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:10px 20px;
+      border-radius:999px;
+      box-shadow:0 6px 16px rgba(0,0,0,.15);
+      transition:transform .2s ease, background .3s ease;
+    }
+    .cta-link:hover{transform:translateY(-2px); background:#4a7edc;}
+
+    @media print{body{background:#fff} .hero,.canvas,.footer{box-shadow:none}}
+  </style>
+</head>
+<body>
+  <main class="poster" data-target="https://example.com/prototype-trial">
+    <section class="hero">
+      <h1>Emotion‑Aware Interaction Aid for Autism Support</h1>
+      <p>Prototype Trial — Watch the full test run online</p>
+    </section>
+
+    <section class="canvas">
+      <h2>Watch the prototype trial</h2>
+      <p>Click the button below to open the video page :</p>
+      <a id="videoLink" class="cta-link" href="#" target="_blank" rel="noopener">▶ Watch the Video</a>
+    </section>
+
+    <section class="footer" aria-label="visual canvas">
+      <img src="https://www.eurecom.fr/themes/custom/eurecom/logo.svg" alt="Eurecom logo">
+      <div class="team-name">Emotism</div>
+    </section>
+  </main>
+
+  <script>
+    const container = document.querySelector('.poster');
+    const TARGET_URL = container?.dataset.target?.trim() || 'https://example.com/prototype-trial';
+    const link = document.getElementById('videoLink');
+    link.href = TARGET_URL;
+  </script>
+</body>
+</html>
