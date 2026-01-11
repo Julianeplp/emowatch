@@ -42,15 +42,83 @@
     .hero p{margin:12px auto 0; max-width:720px; opacity:.9; font-size:clamp(16px,2.2vw,20px);}
 
     .footer{
-      border-radius:var(--radius); min-height:260px; background:var(--panel);
-      box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:24px;
-      background-image:linear-gradient(135deg, rgba(106,165,255,.1), rgba(74,126,220,.1));
+      border-radius:var(--radius);
+      min-height:260px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background-image:linear-gradient(135deg, rgba(106,165,255,.10), rgba(74,126,220,.10));
     }
-    .footer img{
-      height:60px; margin-bottom:8px; filter: brightness(0) invert(0.1);
+
+    /* Bottom brand frame */
+    .brand-card{
+      width:min(680px, 100%);
+      border-radius:22px;
+      padding:18px 18px;
+      background:linear-gradient(135deg, rgba(106,165,255,.18), rgba(255,255,255,.85));
+      border:1px solid rgba(74,126,220,.20);
+      box-shadow:0 14px 28px rgba(11,19,43,.10);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-    .footer .team-name{
-      font-weight:700; font-size:1.2rem; color:var(--ink);
+    .brand-left{display:flex; align-items:center; gap:14px; min-width:0;}
+
+    .eurecom-mark{
+      height:44px;
+      width:auto;
+      display:block;
+      background:#ffffff;
+      padding:6px 10px;
+      border-radius:8px;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+    }
+
+    .brand-divider{
+      width:1px;
+      height:42px;
+      background:rgba(11,19,43,.18);
+      flex:0 0 auto;
+    }
+
+    .brand-name{
+      font-family:Space Grotesk, Inter, sans-serif;
+      font-weight:800;
+      letter-spacing:-.02em;
+      font-size:clamp(22px, 3vw, 32px);
+      line-height:1;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .brand-sub{
+      margin-top:6px;
+      font-size:13px;
+      opacity:.75;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .brand-pill{
+      background:rgba(11,19,43,.92);
+      color:#fff;
+      font-weight:700;
+      font-size:12px;
+      padding:10px 12px;
+      border-radius:999px;
+      box-shadow:0 10px 18px rgba(11,19,43,.18);
+      white-space:nowrap;
+    }
+
+    @media (max-width:520px){
+      .brand-card{flex-direction:column; align-items:flex-start;}
+      .brand-pill{align-self:stretch; text-align:center;}
+      .brand-divider{display:none;}
+      .brand-name,.brand-sub{white-space:normal;}
     }
 
     .canvas{
@@ -88,9 +156,18 @@
       <a id="videoLink" class="cta-link" href="#" target="_blank" rel="noopener">▶ Watch the Video</a>
     </section>
 
-    <section class="footer" aria-label="visual canvas">
-      <img src="https://www.eurecom.fr/themes/custom/eurecom/logo.svg" alt="Eurecom logo">
-      <div class="team-name">Emotism</div>
+    <section class="footer" aria-label="brand">
+      <div class="brand-card">
+        <div class="brand-left">
+          <img id="eurecomLogo" class="eurecom-mark" src="./assets/eurecom-logo.png" alt="EURECOM logo" loading="lazy">
+          <div class="brand-divider" aria-hidden="true"></div>
+          <div>
+            <div class="brand-name">Emowatch</div>
+            <div class="brand-sub">Student project showcase</div>
+          </div>
+        </div>
+        <div class="brand-pill">EURECOM</div>
+      </div>
     </section>
   </main>
 
@@ -99,6 +176,25 @@
     const TARGET_URL = container?.dataset.target?.trim() || 'https://example.com/prototype-trial';
     const link = document.getElementById('videoLink');
     link.href = TARGET_URL;
+
+    // Make the logo path robust on GitHub Pages sub-paths
+    const logo = document.getElementById('eurecomLogo');
+    if (logo) {
+      logo.src = new URL('assets/eurecom-logo.png', document.baseURI).toString();
+      logo.addEventListener('error', () => {
+        // Fallback: show text if the image is missing or not committed
+        const fallback = document.createElement('div');
+        fallback.className = 'eurecom-mark';
+        fallback.style.display = 'flex';
+        fallback.style.alignItems = 'center';
+        fallback.style.justifyContent = 'center';
+        fallback.style.fontWeight = '800';
+        fallback.style.color = '#0b132b';
+        fallback.textContent = 'EURECOM';
+        logo.replaceWith(fallback);
+        console.warn('EURECOM logo not found. Make sure assets/eurecom-logo.png exists in your repo and is committed.');
+      }, { once: true });
+    }
   </script>
 </body>
 </html>
