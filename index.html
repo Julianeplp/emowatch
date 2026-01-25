@@ -144,7 +144,8 @@
   </style>
 </head>
 <body>
-  <main class="poster" data-target="https://www.youtube.com/watch?v=3dqXQB-ATSk">
+  <main class="poster" data-target="https://example.com/prototype-trial">
+    <section class="hero">
       <h1>Emotion‑Aware Interaction Aid for Autism Support</h1>
       <p>Prototype Trial — Watch the full test run online</p>
     </section>
@@ -176,12 +177,12 @@
     const link = document.getElementById('videoLink');
     link.href = TARGET_URL;
 
-    // Make the logo path robust on GitHub Pages sub-paths
+    // Logo: keep a simple relative path so it works on GitHub Pages
+    // (If you preview the HTML on github.com, images may not load — open the github.io URL instead.)
     const logo = document.getElementById('eurecomLogo');
     if (logo) {
-      logo.src = new URL('assets/eurecom-logo.png', document.baseURI).toString();
       logo.addEventListener('error', () => {
-        // Fallback: show text if the image is missing or not committed
+        // Fallback: show text if the image is missing or blocked
         const fallback = document.createElement('div');
         fallback.className = 'eurecom-mark';
         fallback.style.display = 'flex';
@@ -191,7 +192,7 @@
         fallback.style.color = '#0b132b';
         fallback.textContent = 'EURECOM';
         logo.replaceWith(fallback);
-        console.warn('EURECOM logo not found. Make sure assets/eurecom-logo.png exists in your repo and is committed.');
+        console.warn('EURECOM logo failed to load. Ensure assets/eurecom-logo.png exists and open the site via https://<user>.github.io/<repo>/');
       }, { once: true });
     }
   </script>
